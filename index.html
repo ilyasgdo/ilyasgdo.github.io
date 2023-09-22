@@ -1,33 +1,114 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Page Bootstrap avec Todo List</title>
+    <!-- Ajoutez les liens vers les fichiers CSS de Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .mainTitle{
-            background-color: blueviolet;
-        }
-        .mainP{
-            background-color: greenyellow;
-        }
-        .hun{
-            background-color: greenyellow;
-        }
-    </style>
+    /* Style pour la barre de navigation */
+    .navbar {
+        background-color: #3498db;
+    }
+
+    .navbar-brand, .nav-link {
+        color: #fff;
+    }
+
+    /* Style pour le contenu principal */
+    .container {
+        background-color: #ecf0f1;
+        padding: 20px;
+        border-radius: 5px;
+    }
+
+    h1 {
+        color: #333;
+    }
+
+    /* Style pour la liste de tâches */
+    .card {
+        margin-top: 20px;
+    }
+
+    .list-group-item {
+        display: flex;
+        align-items: center;
+    }
+
+    input[type="checkbox"] {
+        margin-right: 10px;
+    }
+
+    /* Style pour le pied de page */
+    footer {
+        background-color: #333;
+        color: #fff;
+    }
+</style>
 </head>
 <body>
-    <div class="mainTitle">
-        <h1 class="hun">
-            enfin un site ouf  
-        </h1>
-    </div>
-    <div class="mainTitle">
-        <p class="hun">
-            se n'est que le debut tqt mon pote 
-        </p>
-      <button><a href="index.php"></a>clique</button>
-    </div>
 
-    
+<!-- Barre de navigation Bootstrap -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="#">Mon Site</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">À propos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Services</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Contenu principal -->
+<div class="container mt-5">
+    <h1>Bienvenue sur mon site</h1>
+    <p>Ceci est le contenu principal de la page.</p>
+
+    <!-- Todo List Bootstrap -->
+    <div class="card">
+        <div class="card-header">
+            Ma Todo List
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <input type="checkbox" id="task1"> 
+                <label for="task1">Tâche 1</label>
+            </li>
+            <li class="list-group-item">
+                <input type="checkbox" id="task2"> 
+                <label for="task2">Tâche 2</label>
+            </li>
+            <li class="list-group-item">
+                <input type="checkbox" id="task3"> 
+                <label for="task3">Tâche 3</label>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!-- Pied de page Bootstrap -->
+<footer class="bg-dark text-white text-center py-3">
+    <div class="container">
+        <p>&copy; 2023 Mon Site. Tous droits réservés.</p>
+    </div>
+</footer>
+
+<!-- Ajoutez les liens vers les fichiers JavaScript de Bootstrap (facultatif) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
