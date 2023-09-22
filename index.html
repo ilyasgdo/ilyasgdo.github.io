@@ -9,6 +9,48 @@
     <!-- Liens vers les fichiers JavaScript de Bootstrap (facultatif) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+    /* Style pour la barre de navigation */
+    .navbar {
+        background-color: #3498db;
+    }
+
+    .navbar-brand, .nav-link {
+        color: #fff;
+    }
+
+    /* Style pour le contenu principal */
+    .container {
+        background-color: #ecf0f1;
+        padding: 20px;
+        border-radius: 5px;
+    }
+
+    h1 {
+        color: #333;
+    }
+
+    /* Style pour la liste de tâches */
+    .card {
+        margin-top: 20px;
+    }
+
+    .list-group-item {
+        display: flex;
+        align-items: center;
+    }
+
+    input[type="checkbox"] {
+        margin-right: 10px;
+    }
+
+    /* Style pour le pied de page */
+    footer {
+        background-color: #333;
+        color: #fff;
+    }
+</style>
+
 </head>
 <body>
 
@@ -33,11 +75,35 @@
 
     <!-- Liste de tâches à faire -->
     <h2>Tâches à faire</h2>
-    <ul id="incomplete-tasks" class="list-group"></ul>
+    <ul id="incomplete-tasks" class="list-group">
+        <li class="list-group-item">
+            <input type="checkbox">
+            <label>Tâche 1 à faire</label>
+            <button class="btn btn-warning edit-button">Éditer</button>
+            <button class="btn btn-danger delete-button">Supprimer</button>
+        </li>
+        <li class="list-group-item">
+            <input type="checkbox">
+            <label>Tâche 2 à faire</label>
+            <button class="btn btn-warning edit-button">Éditer</button>
+            <button class="btn btn-danger delete-button">Supprimer</button>
+        </li>
+    </ul>
 
     <!-- Liste de tâches terminées -->
     <h2>Tâches terminées</h2>
-    <ul id="completed-tasks" class="list-group"></ul>
+    <ul id="completed-tasks" class="list-group">
+        <li class="list-group-item">
+            <input type="checkbox" checked>
+            <label>Tâche terminée 1</label>
+            <button class="btn btn-danger delete-button">Supprimer</button>
+        </li>
+        <li class="list-group-item">
+            <input type="checkbox" checked>
+            <label>Tâche terminée 2</label>
+            <button class="btn btn-danger delete-button">Supprimer</button>
+        </li>
+    </ul>
 </div>
 
 <!-- Ajoutez les liens vers les fichiers JavaScript -->
@@ -150,5 +216,7 @@
         bindTaskEvents(listItem);
     }
 </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
