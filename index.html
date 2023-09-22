@@ -3,112 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page Bootstrap avec Todo List</title>
-    <!-- Ajoutez les liens vers les fichiers CSS de Bootstrap -->
+    <title>Todo List avec Bootstrap</title>
+    <!-- Liens vers les fichiers CSS de Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-    /* Style pour la barre de navigation */
-    .navbar {
-        background-color: #3498db;
-    }
-
-    .navbar-brand, .nav-link {
-        color: #fff;
-    }
-
-    /* Style pour le contenu principal */
-    .container {
-        background-color: #ecf0f1;
-        padding: 20px;
-        border-radius: 5px;
-    }
-
-    h1 {
-        color: #333;
-    }
-
-    /* Style pour la liste de tâches */
-    .card {
-        margin-top: 20px;
-    }
-
-    .list-group-item {
-        display: flex;
-        align-items: center;
-    }
-
-    input[type="checkbox"] {
-        margin-right: 10px;
-    }
-
-    /* Style pour le pied de page */
-    footer {
-        background-color: #333;
-        color: #fff;
-    }
-</style>
+    <!-- Liens vers les fichiers JavaScript de Bootstrap (facultatif) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
 
 <!-- Barre de navigation Bootstrap -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-        <a class="navbar-brand" href="#">Mon Site</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Accueil</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">À propos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Services</a>
-                </li>
-            </ul>
-        </div>
+        <a class="navbar-brand" href="#">Todo List</a>
     </div>
 </nav>
 
 <!-- Contenu principal -->
 <div class="container mt-5">
-    <h1>Bienvenue sur mon site</h1>
-    <p>Ceci est le contenu principal de la page.</p>
+    <h1>Ma Todo List</h1>
 
-    <!-- Todo List Bootstrap -->
-    <div class="card">
-        <div class="card-header">
-            Ma Todo List
+    <!-- Formulaire pour ajouter une tâche -->
+    <form id="task-form" class="mb-3">
+        <div class="input-group">
+            <input type="text" id="new-task" class="form-control" placeholder="Ajouter une nouvelle tâche" required>
+            <button type="submit" class="btn btn-primary">Ajouter</button>
         </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">
-                <input type="checkbox" id="task1"> 
-                <label for="task1">Tâche 1</label>
-            </li>
-            <li class="list-group-item">
-                <input type="checkbox" id="task2"> 
-                <label for="task2">Tâche 2</label>
-            </li>
-            <li class="list-group-item">
-                <input type="checkbox" id="task3"> 
-                <label for="task3">Tâche 3</label>
-            </li>
-        </ul>
-    </div>
+    </form>
+
+    <!-- Liste de tâches à faire -->
+    <h2>Tâches à faire</h2>
+    <ul id="incomplete-tasks" class="list-group"></ul>
+
+    <!-- Liste de tâches terminées -->
+    <h2>Tâches terminées</h2>
+    <ul id="completed-tasks" class="list-group"></ul>
 </div>
 
-<!-- Pied de page Bootstrap -->
-<footer class="bg-dark text-white text-center py-3">
-    <div class="container">
-        <p>&copy; 2023 Mon Site. Tous droits réservés.</p>
-    </div>
-</footer>
+<!-- Ajoutez les liens vers les fichiers JavaScript -->
+<script>
+    // Fonction pour ajouter une nouvelle tâche
+    function addTask(taskText) {
+        const listItem = document.createElement('li');
+        const checkBox = document.createElement('input');
+        checkBox.type = 'checkbox';
 
-<!-- Ajoutez les liens vers les fichiers JavaScript de Bootstrap (facultatif) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        const label = document.createElement('label');
+        label.innerText = taskText;
+
+        const editInput = document.createElement('input');
+        editInput.type = 'text';
+
+        const editButton = document.createElement('button');
+        editButton.innerText = 'Éditer';
+        editButton.className = 'btn btn-warning';
+
+        const deleteButton = document.createElement('button');
+        deleteButton.innerText = 'Supprimer';
+        deleteButton.className = 'btn btn-danger';
+
+        listItem.appendChild(checkBox);
+        listItem.appendChild(label);
+        listItem.appendChild(editInput);
+        listItem.appendChild(editButton);
+        listItem.appendChild(deleteButton);
+
+        return listItem;
+    }
+
+    // Fonction pour ajouter une tâche lorsque le formulaire est soumis
+    document.getElementById('task-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const taskInput = document.getElementById('new-task');
+        if (!taskInput.value) return;
+
+        const listItem = addTask(taskInput.value);
+        document.getElementById('incomplete-tasks').appendChild(listItem);
+        taskInput.value = '';
+    });
+
+    // Déplacer une tâche terminée vers la liste des tâches terminées
+    function moveTaskToCompleted() {
+        const listItem = this.parentNode;
+        const checkBox = listItem.querySelector('input[type="checkbox"]');
+        checkBox.removeEventListener('change', moveTaskToCompleted);
+        checkBox.checked = true;
+
+        const editButton = listItem.querySelector('button.btn-warning');
+        editButton.style.display = 'none';
+
+        const deleteButton = listItem.querySelector('button.btn-danger');
+        deleteButton.style.display = 'none';
+
+        document.getElementById('completed-tasks').appendChild(listItem);
+    }
+
+    // Écouter les changements de case à cocher pour déplacer les tâches terminées
+    document.addEventListener('change', function (e) {
+        if (e.target && e.target.type === 'checkbox') {
+            moveTaskToCompleted.call(e.target);
+        }
+    });
+
+    // Éditer une tâche
+    function editTask() {
+        const listItem = this.parentNode;
+        const editInput = listItem.querySelector('input[type="text"]');
+        const label = listItem.querySelector('label');
+        const containsClass = listItem.classList.contains('editMode');
+
+        if (containsClass) {
+            label.innerText = editInput.value;
+        } else {
+            editInput.value = label.innerText;
+        }
+
+        listItem.classList.toggle('editMode');
+    }
+
+    // Supprimer une tâche
+    function deleteTask() {
+        const listItem = this.parentNode;
+        const ul = listItem.parentNode;
+        ul.removeChild(listItem);
+    }
+
+    // Associer les fonctions d'édition et de suppression aux boutons correspondants
+    function bindTaskEvents(taskListItem) {
+        const editButton = taskListItem.querySelector('button.btn-warning');
+        const deleteButton = taskListItem.querySelector('button.btn-danger');
+
+        editButton.addEventListener('click', editTask);
+        deleteButton.addEventListener('click', deleteTask);
+    }
+
+    // Créer des éléments pour les tâches déjà existantes
+    const existingTasks = [
+        'Tâche 1',
+        'Tâche 2',
+        'Tâche 3'
+    ];
+
+    for (const taskText of existingTasks) {
+        const listItem = addTask(taskText);
+        document.getElementById('incomplete-tasks').appendChild(listItem);
+        bindTaskEvents(listItem);
+    }
+</script>
 </body>
 </html>
